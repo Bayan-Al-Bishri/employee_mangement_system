@@ -1,5 +1,15 @@
 #!/bin/bash
-while true do echo "==============================" echo "Employee Management System" echo "==============================" echo "1. Add Employee" echo "2. View All Employees" echo "3. Search Employee" echo "4. Exit" echo "=============================="
+DELIMITER="|"
+while true 
+do
+echo "==============================" 
+echo "Employee Management System" 
+echo "==============================" 
+echo "1. Add Employee" 
+echo "2. View All Employees" 
+echo "3. Search Employee" 
+echo "4. Exit" 
+echo "=============================="
 read -p "Enter your choice: " choice
 
 case $choice in
