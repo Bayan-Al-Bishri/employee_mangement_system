@@ -22,9 +22,20 @@ do
                read -p "Enter Phone: " phone
                read -p "Enter Department: " department
                read -p "Enter Salary: " salary
+               if [ "$salary" -lt 1500 ]; then
+            hra=$(echo "$salary * 0.10" | bc)
+            da=$(echo "$salary * 0.90" | bc)
+        else
+            hra=500
+            da=$(echo "$salary * 0.98" | bc)
+        fi
+        gross=$(echo "$salary + $hra + $da" | bc)
         
-               echo "$id $DELIMITER $name $DELIMITER $phone $DELIMITER $department $DELIMITER $salary" >> employees.txt
+               echo "$id $DELIMITER $name $DELIMITER $phone $DELIMITER $department $DELIMITER $salary $DELIMITER $hra $DELIMITER $da $DELIMITER $gross" >> employees.txt
                echo "Employee added successfully. "
+               echo "HRA: $hra"
+            echo "DA: $da"
+            echo "Gross Salary: $gross"
            fi
            ;;
        2)
@@ -57,3 +68,4 @@ do
            ;;
     esac
 done
+                                                                                                                                                                                                                                                                                                        
