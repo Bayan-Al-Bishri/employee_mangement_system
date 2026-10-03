@@ -33,3 +33,34 @@ esac
 
 echo ""
 done
+echo "====================================="
+echo "Employee Management System"
+echo "====================================="
+while true; do
+   read -p "Enter Employee ID: " id
+   if [ -z "$id" ];then
+     echo "ID cannot be empty. try again. "
+     continue 
+     fi
+if [ -f "employees.txt" ]; then
+if cut -d "|" -f 1 "employees.txt" | grep -q "^$id$"; then
+echo "Error: Employee ID already exists! Enter a unique ID."
+continue 
+fi
+fi
+break
+done
+read -p "Enter Employee Name: " name
+read -p "Enter Phone Number: " phone
+read -p "Enter Department: " department
+read -p "Enter Basic Salary: " basic_salary
+echo "$id|$name|$phone|$department|$basic_salary" >> "employees.txt
+echo ""
+echo "Employee Information"
+echo "==========================="
+echo "Employee ID: $id"
+echo "Employee Name: $name"
+echo "Phone Number: $phone"
+echo "Department: $department"
+echo "Basic Salary: $basic_salary"
+;;
