@@ -2,65 +2,58 @@
 DELIMITER="|"
 while true 
 do
-echo "==============================" 
-echo "Employee Management System" 
-echo "==============================" 
-echo "1. Add Employee" 
-echo "2. View All Employees" 
-echo "3. Search Employee" 
-echo "4. Exit" 
-echo "=============================="
-read -p "Enter your choice: " choice
+    echo "==============================" 
+    echo "Employee Management System" 
+    echo "==============================" 
+    echo "1. Add Employee" 
+    echo "2. View All Employees" 
+    echo "3. Search Employee" 
+    echo "4. Exit" 
+    echo "=============================="
+    read -p "Enter your choice: " choice
 
-case $choice in
-    1)
-        echo "Add Employee selected"
-        ;;
-    2)
-        echo "View All Employees selected"
-        ;;
-    3)
-        echo "Search Employee selected"
-        ;;
-    4)
-        echo "Exiting the system..."
-        break
-        ;;
-    *)
-        echo "Invalid choice"
-        ;;
-esac
+    case $choice in
+       1)
+           read -p "Enter Employye ID: " id
+           if [ -f employees.txt] && grep -q "^$id $DELIMITER" employees.txt; then 
+               echo "Employee ID already exists. "
+           else
+               read -p "Enter Employee Name: " name
+               read -p "Enter Phone: " phone
+               read -p "Enter Department: " department
+               read -p "Enter Salary: " salary
+        
+               echo "$id $DELIMITER $name $DELIMITER $phone $DELIMITER $department $DELIMITER $salary" >> employees.txt
+               echo "Employee added successfully. "
+           fi
+           ;;
+       2)
+        
+           echo "==========================="
+           echo "All Employees "
+           echo "==========================="
 
-echo ""
+           if [ -f employees.txt ]; then
+               cat employees.txt
+           else
+               echo "No employees found. "
+           fi
+           ;;
+       3)
+           read -p "Enter Employee ID to search: " search_id
+           if [ -f employees.txt ] && grep -q "^$search_id $DELIMITER" employees.txt; then
+               grep "^$search_id $DELIMITER" employees.txt
+               echo "Employee found. "
+           else
+               echo "Employee not found. "
+           fi
+           ;;
+       4)
+           echo "Exiting Employee Management System..."
+           break
+           ;;
+       *)
+           echo "Invalid choice. Please try again."
+           ;;
+    esac
 done
-echo "====================================="
-echo "Employee Management System"
-echo "====================================="
-while true; do
-   read -p "Enter Employee ID: " id
-   if [ -z "$id" ];then
-     echo "ID cannot be empty. try again. "
-     continue 
-     fi
-if [ -f "employees.txt" ]; then
-if cut -d "|" -f 1 "employees.txt" | grep -q "^$id$"; then
-echo "Error: Employee ID already exists! Enter a unique ID."
-continue 
-fi
-fi
-break
-done
-read -p "Enter Employee Name: " name
-read -p "Enter Phone Number: " phone
-read -p "Enter Department: " department
-read -p "Enter Basic Salary: " basic_salary
-echo "$id|$name|$phone|$department|$basic_salary" >> "employees.txt
-echo ""
-echo "Employee Information"
-echo "==========================="
-echo "Employee ID: $id"
-echo "Employee Name: $name"
-echo "Phone Number: $phone"
-echo "Department: $department"
-echo "Basic Salary: $basic_salary"
-;;
